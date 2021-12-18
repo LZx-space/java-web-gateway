@@ -1,0 +1,60 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
+          issuer-uri: http://auth-server:9000
+  cloud:
+    gateway:
+      security:
+        # 允许所有人访问的请求
+        permit-all:
+          GET:
+            - /ws/**
+            - /uc/login/oauth2/code/**
+          POST:
+        # 需要登录才能访问的请求
+        authenticated:
+          GET:
+            - /uc/oauth2/authorize
+          POST:
+            - /uc/oauth2/authorize
+        # 自定义访问控制的请求
+        api-authority:
+          permit-all:
+            GET:
+              - /get/**
+              - /get/*/1
+              - /test1/*
+              - /actuator/**
+              - /uc/test/**
+            POST:
+              - /actuator/**
+          authenticated:
+            GET:
+              - /test2/*
+      routes:
+        - id: uc-route
+          uri: http://localhost:9000
+          predicates:
+            - Path=/uc/**
+          filters:
+            - RewritePath=/uc/?(?<segment>.*), /$\{segment}
+        - id: test-route
+          uri: http://localhost:9000
+          predicates:
+            - Path=/test/**
+
+#logging:
+#  level:
+#    web: DEBUG
+
+management:
+  endpoint:
+    gateway:
+      enabled: true # default value
+  endpoints:
+    web:
+      exposure:
+        include: "*"

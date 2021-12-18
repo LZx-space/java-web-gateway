@@ -1,0 +1,49 @@
+{
+  "groups": [
+    {
+      "name": "spring.cloud.gateway.security",
+      "type": "org.lzx.javaweb.gateway.infrastructure.config.spring.security.AuthorizeExchangeProperties",
+      "sourceType": "org.lzx.javaweb.gateway.infrastructure.config.spring.security.AuthorizeExchangeProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.security.api-authority",
+      "type": "org.lzx.javaweb.gateway.infrastructure.config.spring.security.authorization.properties.AuthenticatedProperties",
+      "sourceType": "org.lzx.javaweb.gateway.infrastructure.config.spring.security.authorization.properties.AuthenticatedProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.cloud.gateway.security.api-authority.application-event-publisher",
+      "type": "org.springframework.context.ApplicationEventPublisher",
+      "sourceType": "org.lzx.javaweb.gateway.infrastructure.config.spring.security.authorization.properties.AuthenticatedProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.security.api-authority.authenticated",
+      "type": "java.util.Map<org.springframework.http.HttpMethod,java.util.List<java.lang.String>>",
+      "description": "已认证的用户能访问的请求的路径匹配",
+      "sourceType": "org.lzx.javaweb.gateway.infrastructure.config.spring.security.authorization.properties.AuthenticatedProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.security.api-authority.method-path-patterns",
+      "type": "java.util.Map<org.springframework.http.HttpMethod,java.util.List<java.lang.String>>",
+      "sourceType": "org.lzx.javaweb.gateway.infrastructure.config.spring.security.authorization.properties.AuthenticatedProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.security.api-authority.permit-all",
+      "type": "java.util.Map<org.springframework.http.HttpMethod,java.util.List<java.lang.String>>",
+      "description": "无论是否认证都能访问",
+      "sourceType": "org.lzx.javaweb.gateway.infrastructure.config.spring.security.authorization.properties.PermitAllProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.security.authenticated",
+      "type": "java.util.Map<org.springframework.http.HttpMethod,java.util.List<java.lang.String>>",
+      "sourceType": "org.lzx.javaweb.gateway.infrastructure.config.spring.security.AuthorizeExchangeProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.security.permit-all",
+      "type": "java.util.Map<org.springframework.http.HttpMethod,java.util.List<java.lang.String>>",
+      "sourceType": "org.lzx.javaweb.gateway.infrastructure.config.spring.security.AuthorizeExchangeProperties"
+    }
+  ],
+  "hints": []
+}

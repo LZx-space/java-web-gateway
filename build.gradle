@@ -10,7 +10,7 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'java'
 
-    group = 'org.lzx.javaweb'
+    group = 'org.lzx.web'
     version = '0.0.1-SNAPSHOT'
     sourceCompatibility = '11'
 

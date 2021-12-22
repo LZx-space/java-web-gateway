@@ -1,7 +1,7 @@
 package org.lzx.web.gateway.infrastructure.config.spring.security.authorization.util;
 
 import lombok.extern.slf4j.Slf4j;
-import org.lzx.web.gateway.infrastructure.config.spring.security.authorization.RequestPathProperties;
+import org.lzx.web.gateway.infrastructure.config.spring.security.authorization.RequestPathPatternMap;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
@@ -28,11 +28,11 @@ public class AuthorizationManagerHelper {
     /**
      * 将请求路径正则转换为请求匹配器
      *
-     * @param requestPathProperties 请求方法为Key路径匹配表达式为Value类型的属性
+     * @param requestPathPatternMap 请求方法为Key路径匹配表达式为Value类型的属性
      * @return 请求匹配器
      */
-    public static ServerWebExchangeMatcher serverWebExchangeMatcher(RequestPathProperties requestPathProperties) {
-        List<ServerWebExchangeMatcher> matchers = requestPathProperties.getMethodPathPatterns().entrySet().stream()
+    public static ServerWebExchangeMatcher serverWebExchangeMatcher(RequestPathPatternMap requestPathPatternMap) {
+        List<ServerWebExchangeMatcher> matchers = requestPathPatternMap.entrySet().stream()
                 .map(e -> {
                     HttpMethod method = e.getKey();
                     String[] pathPatterns = e.getValue().toArray(String[]::new);

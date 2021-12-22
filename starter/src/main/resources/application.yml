@@ -8,7 +8,8 @@ spring:
   cloud:
     gateway:
       security:
-        api-authority:
+        user-details-url: http://localhost:9000
+        authorization:
           # 允许所有人访问的请求
           permit-all:
             GET:
@@ -32,14 +33,13 @@ spring:
           predicates:
             - Path=/test/**
 
-#logging:
-#  level:
-#    web: DEBUG
+logging:
+  level:
+    web: INFO
+  file:
+    name: ./logs/gateway.log
 
 management:
-  endpoint:
-    gateway:
-      enabled: true # default value
   endpoints:
     web:
       exposure:

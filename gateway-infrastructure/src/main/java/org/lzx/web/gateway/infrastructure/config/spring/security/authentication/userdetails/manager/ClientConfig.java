@@ -1,4 +1,4 @@
-package org.lzx.web.gateway.infrastructure.config.spring.security.userdetails.manager;
+package org.lzx.web.gateway.infrastructure.config.spring.security.authentication.userdetails.manager;
 
 import feign.codec.Decoder;
 import feign.codec.StringDecoder;

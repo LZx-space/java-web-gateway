@@ -1,7 +1,7 @@
-package org.lzx.web.gateway.infrastructure.config.spring.security.userdetails;
+package org.lzx.web.gateway.infrastructure.config.spring.security.authentication.userdetails;
 
-import org.lzx.web.gateway.infrastructure.config.spring.security.userdetails.dto.UserDto;
-import org.lzx.web.gateway.infrastructure.config.spring.security.userdetails.manager.UserDetailsClient;
+import org.lzx.web.gateway.infrastructure.config.spring.security.authentication.userdetails.dto.UserDto;
+import org.lzx.web.gateway.infrastructure.config.spring.security.authentication.userdetails.manager.UserDetailsClient;
 import org.lzx.web.gateway.infrastructure.util.JsonUtils;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;

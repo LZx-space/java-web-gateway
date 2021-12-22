@@ -1,4 +1,4 @@
-package org.lzx.web.gateway.infrastructure.config.spring.security.userdetails.dto;
+package org.lzx.web.gateway.infrastructure.config.spring.security.authentication.userdetails.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

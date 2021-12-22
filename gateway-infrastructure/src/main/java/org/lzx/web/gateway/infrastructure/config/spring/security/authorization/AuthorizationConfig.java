@@ -4,8 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.lzx.web.gateway.infrastructure.config.spring.security.authorization.evaluator.ApiAuthorizationEvaluator;
 import org.lzx.web.gateway.infrastructure.config.spring.security.authorization.evaluator.AuthenticatedAuthorizationEvaluator;
 import org.lzx.web.gateway.infrastructure.config.spring.security.authorization.evaluator.PermitAllAuthorizationEvaluator;
-import org.lzx.web.gateway.infrastructure.config.spring.security.authorization.properties.AuthenticatedProperties;
-import org.lzx.web.gateway.infrastructure.config.spring.security.authorization.properties.PermitAllProperties;
 import org.lzx.web.gateway.infrastructure.config.spring.security.authorization.util.AuthorizationManagerHelper;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -23,8 +21,8 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
-@EnableConfigurationProperties({PermitAllProperties.class, AuthenticatedProperties.class})
-public class ApiAuthorityConfig {
+@EnableConfigurationProperties(AuthorizationProperties.class)
+public class AuthorizationConfig {
 
     @Bean
     DefaultAuthorizationManager apiAuthorizationManager(List<AuthorizationEvaluator> authorizationEvaluators) {
@@ -34,9 +32,10 @@ public class ApiAuthorityConfig {
     @Bean
     @RefreshScope
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    AuthorizationEvaluator permitAllAuthorizationEvaluator(PermitAllProperties permitAllProperties) {
+    AuthorizationEvaluator permitAllAuthorizationEvaluator(AuthorizationProperties authorizationProperties) {
         log.info("API权限控制-开始[0]-创建任何人可访问请求匹配器");
-        ServerWebExchangeMatcher permitAllMatcher = AuthorizationManagerHelper.serverWebExchangeMatcher(permitAllProperties);
+        RequestPathPatternMap permitAll = authorizationProperties.getPermitAll();
+        ServerWebExchangeMatcher permitAllMatcher = AuthorizationManagerHelper.serverWebExchangeMatcher(permitAll);
         log.info("API权限控制-结束[1]-创建任何人可访问请求匹配器");
         return new PermitAllAuthorizationEvaluator(permitAllMatcher);
     }
@@ -44,9 +43,10 @@ public class ApiAuthorityConfig {
     @Bean
     @RefreshScope
     @Order(Ordered.HIGHEST_PRECEDENCE + 1)
-    AuthorizationEvaluator authenticatedAuthorizationEvaluator(AuthenticatedProperties authenticatedProperties) {
+    AuthorizationEvaluator authenticatedAuthorizationEvaluator(AuthorizationProperties authorizationProperties) {
         log.info("API权限控制-开始[0]-创建登录后可访问请求匹配器");
-        ServerWebExchangeMatcher authenticatedMather = AuthorizationManagerHelper.serverWebExchangeMatcher(authenticatedProperties);
+        RequestPathPatternMap authenticated = authorizationProperties.getAuthenticated();
+        ServerWebExchangeMatcher authenticatedMather = AuthorizationManagerHelper.serverWebExchangeMatcher(authenticated);
         log.info("API权限控制-结束[1]-创建登录后可访问请求匹配器");
         return new AuthenticatedAuthorizationEvaluator(authenticatedMather);
     }

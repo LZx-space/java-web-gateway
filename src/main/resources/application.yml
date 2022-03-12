@@ -21,37 +21,46 @@ management.endpoints.web.exposure.include: '*'
 # 访问控制
 # PathPattern要求格式的用户名匹配表达式
 username.path-pattern: wx[0-9]{7,9}|[0-9]{4,5}|X[0-9]{5,6}
-spring.cloud.gateway.security.authorization:
-  # ********** 拒绝任何外部的访问 ***************
-  deny-all:
-    GET:
-      - /sso/users/{username:${username.path-pattern}}
-      - /sso/users/should_lock/{username:${username.path-pattern}}
-    PUT:
-      - /sso/users/failed_login/{username:${username.path-pattern}}
-      - /sso/users/bad_credentials_lock/{username:${username.path-pattern}}
-  # ********** 任何人都允许访问的请求 **********
-  permit-all:
-    ALL:
-      - /permit_all/**
-    GET:
-      - /permit_get/**
-    POST:
-      - /sftp/files
-      - /permit_post/**
-    HEAD:
-      - /**
-    PATCH:
-      - /**
-    OPTIONS:
-      - /**
-    TRACE:
-      - /**
-  # ********** 必须登录后才能访问的请求 **********
-  authenticated:
-    ALL:
-      - /actuator/**
-      - /swagger-*/**
-      - /webjars/**
-      - /v3/api-docs
-      - /inner-services/**
+spring.cloud.gateway:
+  security:
+    login-page-url: http://localhost/login.html
+    user-details-service-route-id: uc-route
+    authorization:
+      # ********** 拒绝任何外部的访问 ***************
+      deny-all:
+        GET:
+          - /sso/users/{username:${username.path-pattern}}
+          - /sso/users/should_lock/{username:${username.path-pattern}}
+        PUT:
+          - /sso/users/failed_login/{username:${username.path-pattern}}
+          - /sso/users/bad_credentials_lock/{username:${username.path-pattern}}
+      # ********** 任何人都允许访问的请求 **********
+      permit-all:
+        ALL:
+          - /permit_all/**
+          - /test/**
+        GET:
+          - /permit_get/**
+        POST:
+          - /sftp/files
+          - /permit_post/**
+        HEAD:
+          - /**
+        PATCH:
+          - /**
+        OPTIONS:
+          - /**
+        TRACE:
+          - /**
+      # ********** 必须登录后才能访问的请求 **********
+      authenticated:
+        ALL:
+          - /actuator/**su
+          - /swagger-*/**
+          - /webjars/**
+          - /v3/api-docs
+          - /inner-services/**
+  routes:
+    - id: uc-route
+      uri: http://localhost/uc
+      predicates: Path=/uc/**

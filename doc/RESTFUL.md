@@ -1,5 +1,5 @@
 # REST API实践指南
-## 概念
+### 概念
 * 概述：`REST`Representational State Transfer，即（资源）的具象化（表现化）的状态转化
   * 概要说明：它使用URL来标识资源、HTTP的动词表现转变。
     * URL部分一般可直接使用领域模型的领域对象或服务作为片段
@@ -16,7 +16,7 @@
       * 多个参数：如path params `/lisi;gander=1;`
   * [“一把梭：REST API 全用 POST”](https://coolshell.cn/articles/22173.html)
 
-## 难点
+### 难点
 * 资源
   * 哪些事物可以为资源
     * 模型中的业务对象：如`user`
@@ -49,7 +49,7 @@
     * Q2: `POST /users/{username}/password`假设为新增密码，那么验证密码怎么编写？
     * A2: 动词可确定为`POST`，但这里资源同样也是`/users/{username}/password`就无法区别了，这时应该将资源名从实体名修改为服务名，即
           `POST password_validation { username: lzx, current_pwd: pwd, submit_pwd: pwd}`
-# RESTFUL总结
+### RESTFUL总结
 * 这里称`/users/{username}/todos`这种使用层级即可表现的资源转化为简易模式
 * 简易模式兼具简要&结构关系&状态变成的表现力，这种模式应该优先使用
 * 简易模式无法覆盖所有情况，此时只能使用领域服务名来做资源名称
